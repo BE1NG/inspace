@@ -32,7 +32,7 @@ def signin(request):
     if request.method == 'POST':
         # 회원정보 조회
         email = request.POST.get('email')
-        pwd = request.POST.get('pwd')
+        pwd = request.POST.get('password')
 
         try:
             # select * from user where email=? and pwd=?
