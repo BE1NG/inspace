@@ -15,11 +15,11 @@ def signup(request):
         # 회원정보 저장
         email = request.POST.get('email')
         name = request.POST.get('name')
-        pwd = request.POST.get('password')
+        password = request.POST.get('password')
         try:
             User.objects.get(email=email)
         except:
-            user = User(email=email, name=name, password=pwd)
+            user = User(email=email, name=name, password=password)
             user.save()
             return HttpResponseRedirect('/inspace/signin/')
 
@@ -32,15 +32,16 @@ def signin(request):
     if request.method == 'POST':
         # 회원정보 조회
         email = request.POST.get('email')
-        pwd = request.POST.get('password')
+        password = request.POST.get('password')
 
         try:
             # select * from user where email=? and pwd=?
             user = User.objects.get(email=email, password=pwd)
             request.session['email'] = email
+            
             return render(request, 'mypage.html')
         except:
-            return render(request, 'signin.html')
+            return HttpResponseRedirect('')
 
     return render(request, 'signin.html')
 
