@@ -39,9 +39,9 @@ def signin(request):
             user = User.objects.get(email=email, password=password)
             request.session['email'] = email
             
-            return HttpResponseRedirect('')
-        except:
             return render(request, 'mypage.html')
+        except:
+            return HttpResponseRedirect('')
 
     return render(request, 'signin.html')
 
