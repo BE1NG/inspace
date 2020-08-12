@@ -36,7 +36,7 @@ def signin(request):
 
         try:
             # select * from user where email=? and pwd=?
-            user = User.objects.get(email=email, password=password)
+            user = User.objects.get(email=email, password=pwd)
             request.session['email'] = email
             return render(request, 'mypage.html')
         except:
@@ -49,7 +49,7 @@ def signout(request):
     del request.session['email'] # 개별 삭제
     request.session.flush() # 전체 삭제
 
-    return HttpResponseRedirect('')
+    return HttpResponseRedirect('inspace/signin/')
 
 def mypage(request):
     return render(request, 'mypage.html')
