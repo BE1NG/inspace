@@ -20,3 +20,6 @@ def write(request):
         except:
             return render(request, 'write_fail.html')
     return render(request, 'write.html')
+
+def base(request):
+    return render(request, 'base.html')
