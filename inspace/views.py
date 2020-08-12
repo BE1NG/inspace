@@ -19,7 +19,7 @@ def signup(request):
         try:
             User.objects.get(email=email)
         except:
-            user = User(email=email, name=name, password=pwd)
+            user = User(email=email, name=name, password=password)
             user.save()
             return HttpResponseRedirect('/inspace/signin/')
 
@@ -38,9 +38,10 @@ def signin(request):
             # select * from user where email=? and pwd=?
             user = User.objects.get(email=email, password=password)
             request.session['email'] = email
-            return render(request, 'mypage.html')
+            
+            return HttpResponseRedirect('')
         except:
-            return render(request, 'signin.html')
+            return render(request, 'mypage.html')
 
     return render(request, 'signin.html')
 
