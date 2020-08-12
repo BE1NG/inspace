@@ -36,7 +36,7 @@ def signin(request):
 
         try:
             # select * from user where email=? and pwd=?
-            user = User.objects.get(email=email, password=password)
+            user = User.objects.get(email=email, pwd=password)
             request.session['email'] = email
             return render(request, 'mypage.html')
         except:
