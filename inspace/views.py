@@ -15,7 +15,7 @@ def signup(request):
         # 회원정보 저장
         email = request.POST.get('email')
         name = request.POST.get('name')
-        pwd = request.POST.get('password')
+        password = request.POST.get('password')
         try:
             User.objects.get(email=email)
         except:
@@ -32,7 +32,7 @@ def signin(request):
     if request.method == 'POST':
         # 회원정보 조회
         email = request.POST.get('email')
-        pwd = request.POST.get('password')
+        password = request.POST.get('password')
 
         try:
             # select * from user where email=? and pwd=?
