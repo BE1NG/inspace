@@ -36,9 +36,9 @@ def signin(request):
 
         try:
             # select * from user where email=? and pwd=?
-            user = User.objects.get(email=email, pwd=pwd)
+            user = User.objects.get(email=email, password=password)
             request.session['email'] = email
-            return render(request, '')
+            return render(request, 'mypage.html')
         except:
             return render(request, 'signin.html')
 
@@ -50,3 +50,6 @@ def signout(request):
     request.session.flush() # 전체 삭제
 
     return HttpResponseRedirect('')
+
+def mypage(request):
+    return render(request, 'mypage.html')

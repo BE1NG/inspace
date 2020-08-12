@@ -22,4 +22,5 @@ urlpatterns = [
     path('inspace/write/', views.write),
     path('inspace/signup/', views.signup),
     path('inspace/signin/', views.signin),
+    path('inspace/mypage/', views.mypage),
 ]
