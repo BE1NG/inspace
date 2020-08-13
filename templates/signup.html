@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.4.1/css/bootstrap.css}">
-    <link rel="stylesheet" type="text/css" href="/board.css">
+    <!--<link rel="stylesheet" type="text/css" href="/board.css">-->
 </head>
 
 <body>
@@ -21,27 +22,29 @@
         <div class="col-md-12 order-md-1">
             <h4 class="mb-3">회원정보</h4>
             <form class="needs-validation" novalidate th:action="@{/signup}" method="POST">
-                {% csrf_token %}                
+                {% csrf_token %}
                 <div class="mb-3">
                     <label for="email">이메일</label>
                     <input type="email" class="form-control" id="email" placeholder="you@example.com" name="email">
+                    <input type="button" id="check" value="중복확인">
                     <div class="invalid-feedback">올바른 이메일을 입력하세요.</div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="password">비밀번호</label> 
-                    <input type="password" class="form-control" id="password" placeholder="" value="" required name="password">
+                    <label for="password">비밀번호</label>
+                    <input type="password" class="form-control" id="password" placeholder="" value="" required
+                        name="password">
                     <div class="invalid-feedback">유효한 비밀번호가 필요합니다.</div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="name">이름</label> 
+                    <label for="name">이름</label>
                     <input type="text" class="form-control" id="real-name" placeholder="" value="" required name="name">
                     <div class="invalid-feedback">유효한 이름을 입력해야합니다.</div>
                 </div>
-                
+
                 <div class="mb-3">
-                    <label for="name">휴대폰 번호</label> 
+                    <label for="name">휴대폰 번호</label>
                     <input type="text" class="form-control" id="phone" placeholder="" value="" required name="phone">
                     <div class="invalid-feedback">유효한 이름을 입력해야합니다.</div>
                 </div>
@@ -56,6 +59,19 @@
 
     </div>
 
+    <script>
+        $('#check').click(function () {
+            $.ajax({
+                url: '/signup/check_id',
+                data: { 'email': $('#email').val() },
+                success: function (res) {
+                    alert(res.code);
+                    alert(res.msg);
+                }
+            })
+            return false;
+        })
+    </script>
 </body>
 
 </html>

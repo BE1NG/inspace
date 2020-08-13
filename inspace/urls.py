@@ -22,9 +22,9 @@ urlpatterns = [
     path('inspace/write/', views.write),
     path('coord_to_address/', views.coord_to_address),
     path('inspace/signup/', views.signup),
+    path('signup/check_id/', views.check_id),
     path('inspace/signin/', views.signin),
     path('inspace/signout/', views.signout),
     path('inspace/mypage/', views.mypage),
     path('inspace/upload/', views.upload),
-
 ]

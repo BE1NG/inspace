@@ -20,10 +20,24 @@ def signup(request):
             user = User(email=email, name=name, password=password, phone=phone)
             user.save()
             return HttpResponseRedirect('/inspace/signin/')
-        return render(request, 'signup_id_exist.html', {msg : '중복 아이디'})
+        return render(request, 'signup_id_exist.html', {'msg' : '중복 아이디'})
         # return HttpResponseRedirect('/inspace/signup/')
     # 회원가입을 위한 양식(HTML) 전송
     return render(request, 'signup.html')
+
+# 아이디 중복검사
+def check_id(request):
+    email = request.GET.get('email')
+    try:
+            User.objects.get(email=email)
+    except:
+        return JsonResponse({'code':'아이디 중복 확인', 'msg':email + ' 사용 가능한 아이디입니다.'})
+    return JsonResponse({'code':'아이디 중복 확인', 'msg': '중복된 아이디입니다.'})
+    # DB 값 비교
+
+    # result = {'code':'아이디 중복 확인', 'msg':email + ' 사용 가능한 아이디입니다.'}
+
+    # return JsonResponse(result)
 
 # 로그인
 def signin(request):
