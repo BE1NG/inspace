@@ -57,12 +57,28 @@ def mypage(request):
 
 ### 게시판 ###
 def write(request):
-
+    ### 사진업로드
     # if post
     # 파일 업로드 코드 동작
     # => 파일 저장 경로 / 파일명
     # Post(title=dd,content=dd, picture=OOOOOO)
-    # poast.save()
+    # post.save()
+
+    if request.method == 'POST':
+        try:
+            email = request.session['email']
+            user = User.objects.get(email=email)
+
+            content = request.POST.get('content')
+            # picture = request.POST.get('picture')
+            location = request.POST.get('location')
+
+            posting = Posting(content=content, picture=picture, location=location, email=user)
+            posting.save()
+            return HttpResponseRedirect('/inspace/signup/')
+        except:
+            return HttpResponseRedirect('/inspace/signin/')
+
     return render(request, 'write.html')
 
 

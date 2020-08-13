@@ -3,7 +3,7 @@
 
 <div class="jumbotron">
     <div class="container text-center">
-        <form method="post" action="/article/write/">
+        <form method="post" action="/inspace/write/" enctype="multipart/form-data">
             {% csrf_token %}
 
 
@@ -13,17 +13,16 @@
             </div>
 
             <div class="form-group">
-                <label for="picture">사진</label>
-                <textarea class="form-control" rows="1" name="picture" id="picture"></textarea>
-                <button type="submit" id="complete" class="btn btn-primary btn-block btn-sm">
-                    등록
-                </button>
-            </div>
-
-            <div class="form-group">
                 <label for="location">위치</label>
                 <textarea class="form-control" rows="1" name="location" id="location"></textarea>
             </div>
+
+            <div class="form-group">
+                <label for="picture">사진</label>
+                <input type="file" name="picture" id="picture">
+            </div>
+
+            
 
             <button type="submit" id="complete" class="btn btn-primary btn-block">
                 게시물 올리기
