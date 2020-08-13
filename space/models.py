@@ -1,6 +1,6 @@
 from django.db import models
 
-# 사용자 DB       email 기본키로 수정해주세여
+# 사용자 DB  
 class User(models.Model):
     email = models.CharField(primary_key=True, max_length=50)
     password = models.CharField(max_length=100)

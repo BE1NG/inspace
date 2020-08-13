@@ -6,12 +6,13 @@
         <form method="post" action="/inspace/signin/">
             {% csrf_token %}
             <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="text" class="form-control" id="email" name="email">
+                <label for="email">로그인</label>
+                <p></p>
+                <input type="text" class="form-control" id="email" name="email" placeholder="이메일"">
             </div>
             <div class="form-group">
-                <label for="pwd">Password:</label>
-                <input type="password" class="form-control" id="password" name="password">
+                <label for="pwd"></label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
             </div>
             <div class="checkbox mb-3">
                 <label>
