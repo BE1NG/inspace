@@ -13,3 +13,8 @@ class Posting(models.Model):
     content = models.CharField(max_length=1000)
     picture = models.CharField(max_length=500)
     location = models.CharField(max_length=500)
+
+# commet DB
+class User_Comment(models.Model):
+    email = models.CharField(max_length=50)
+    comment = models.CharField(max_length=1000)
