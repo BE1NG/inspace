@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from space.models import User, Posting
 from django.http import JsonResponse  # JSON 응답
+import os  # 사진 업로드
+import requests  # 위도/경도 -> 주소
 
 
 
@@ -84,8 +86,23 @@ def write(request):
             user = User.objects.get(email=email)
 
             content = request.POST.get('content')
-            # picture = request.POST.get('picture')
             location = request.POST.get('location')
+            
+            # 사진 업로드
+            picture = request.FILES['picture']
+            
+            try: # 디렉토리 생성
+                os.mkdir('static/profile_image')  # 폴더 생성
+            except FileExistsError as e:
+                pass
+            
+            picture_name = picture.name
+            with open('static/profile_image/' + picture_name, 'wb') as file:
+                for chunk in picture.chunks():
+                    file.write(chunk)
+
+
+            
 
             posting = Posting(content=content, picture=picture, location=location, email=user)
             posting.save()
@@ -97,7 +114,6 @@ def write(request):
 
 
 ## 사진 업로드
-import os
 def upload(request):
     if request.method == 'GET':
       return render(request, 'upload.html', {})
@@ -115,7 +131,6 @@ def upload(request):
 
 
 ## 위도/경도 -> 주소
-import requests
 def coord_to_address(request):
     lat = request.GET.get('lat')
     lng = request.GET.get('lng')
