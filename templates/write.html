@@ -62,19 +62,4 @@
 </script>
 
 
-<script>
-    $('#check').click(function () {
-        $.ajax({
-            url: '/signup/check_id',
-            data: { 'email': $('#email').val() },
-            success: function (res) {
-                alert(res.code);
-                alert(res.msg);
-            }
-        })
-        return false;
-    })
-</script>
-
-
 {% endblock %}
