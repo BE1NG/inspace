@@ -16,14 +16,15 @@ def signup(request):
         email = request.POST.get('email')
         name = request.POST.get('name')
         password = request.POST.get('password')
+        phone = request.POST.get('phone')
         try:
             User.objects.get(email=email)
         except:
-            user = User(email=email, name=name, password=password)
+            user = User(email=email, name=name, password=password, phone=phone)
             user.save()
             return HttpResponseRedirect('/inspace/signin/')
-
-        return HttpResponseRedirect('/inspace/signup/')
+        return render(request, 'signup_id_exist.html', {msg : '중복 아이디'})
+        # return HttpResponseRedirect('/inspace/signup/')
     # 회원가입을 위한 양식(HTML) 전송
     return render(request, 'signup.html')
 
@@ -50,7 +51,7 @@ def signout(request):
     del request.session['email'] # 개별 삭제
     request.session.flush() # 전체 삭제
 
-    return HttpResponseRedirect('inspace/signin/')
+    return HttpResponseRedirect('/inspace/signin/')
 
 def mypage(request):
     return render(request, 'mypage.html')
