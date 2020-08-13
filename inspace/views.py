@@ -36,12 +36,12 @@ def signin(request):
 
         try:
             # select * from user where email=? and pwd=?
-            user = User.objects.get(email=email, password=pwd)
+            user = User.objects.get(email=email, password=password)
             request.session['email'] = email
             
-            return render(request, 'mypage.html')
+            return HttpResponseRedirect('/inspace/mypage/')
         except:
-            return HttpResponseRedirect('')
+            return render(request, 'signin.html')
 
     return render(request, 'signin.html')
 
