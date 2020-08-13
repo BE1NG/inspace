@@ -67,7 +67,12 @@ def signout(request):
     return HttpResponseRedirect('/inspace/signin/')
 
 def mypage(request):
-    return render(request, 'mypage.html')
+    email = request.session['email']
+    user = User.objects.get(email=email)
+    context = {
+        'user' : user
+    }
+    return render(request, 'mypage.html', context)
 
 
 

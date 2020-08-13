@@ -75,27 +75,26 @@
         
         <strong>Inspace</strong>
       </a>
-      <ul class="nav navbar-nav navbar-right">
-        {% if request.session.email %}
-        <li>
-          <a href="/inspace/signout/">
-            <span class="glyphicon glyphicon-log-out"></span> 
-            Logout {{ request.session.email }}님 반갑습니다.
-          </a>
-        </li>
-        {% else %}
-        <li>
-          <a href="/inspace/signin/">
-            <span class="glyphicon glyphicon-log-in"></span> Login
-          </a>
-        </li>
-        {% endif %}
-      </ul>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     </div>
-    
+    <ul class="nav navbar-nav navbar-right">
+      {% if request.session.email %}
+      <li>
+        <a href="/inspace/signout/">
+          <span class="glyphicon glyphicon-log-out"></span> 
+          Logout {{ request.session.email }}님 반갑습니다.
+        </a>
+      </li>
+      {% else %}
+      <li>
+        <a href="/inspace/signin/">
+          <span class="glyphicon glyphicon-log-in"></span> Login
+        </a>
+      </li>
+      {% endif %}
+    </ul>
   </div>
 </header>
 
