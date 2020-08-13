@@ -137,10 +137,6 @@ def coord_to_address(request):
     return JsonResponse(result)
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e07b4fb39c6cbfe2701777026701150e5d636cb1
 # 댓글
 def comment(request):
     User_Comment_list = User_Comment.objects.order_by('id')
