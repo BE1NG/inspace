@@ -5,6 +5,7 @@ from space.models import User, Posting
 from django.http import JsonResponse  # JSON 응답
 import os  # 사진 업로드
 import requests  # 위도/경도 -> 주소
+from space.models import User_Comment # comment
 
 
 
@@ -66,12 +67,17 @@ def signout(request):
 
     return HttpResponseRedirect('/inspace/signin/')
 
+# 마이페이지
 def mypage(request):
     email = request.session['email']
     user = User.objects.get(email=email)
+    user_posting = Posting.objects.filter(email=user)
     context = {
-        'user' : user
+        'user' : user,
+        'user_posting' : user_posting
     }
+    print(user_posting)
+
     return render(request, 'mypage.html', context)
 
 
@@ -149,3 +155,52 @@ def coord_to_address(request):
 
     return JsonResponse(result)
 
+
+
+# 댓글
+def comment(request):
+    User_Comment_list = User_Comment.objects.order_by('id')
+    User_Comment_list = User_Comment.objects.order_by('email')
+    context = {
+        'User_Comment_list' : User_Comment_list
+    }
+    if request.method == 'POST':
+        comment = request.POST.get('comment')
+        email = request.POST.get('email')
+        id = request.POST.get('id')
+
+        information = User_Comment(email='email_가짜', comment=comment)
+        information.save()
+
+        print(comment,id)
+
+        try:
+            email = request.session['email']
+            # select * from user where email = ?
+
+            user = User.objects.get(email=email)
+            # insert into article (title, content, user_id) values (?, ?, ?)
+            
+            user_comment = User_Comment(comment=comment, user=user)
+            article.save()
+            
+            return render(request, 'comment.html',context)
+        except:
+            return HttpResponseRedirect('/inspace/comment/')
+
+    return render(request, 'comment.html',context)
+
+# 댓글 수정
+def comment_id(request, id):
+    comment = request.GET.get('comment')
+    user_comment = User_Comment.objects.get(id=id)
+    user_comment.comment = comment
+    user_comment.save()
+    return JsonResponse({'msg' : '댓글 수정 완료'})
+
+def delete(request, id):
+    comment = request.GET.get('comment')
+    user_comment = User_Comment.objects.get(id=id)
+    user_comment.delete()
+    return JsonResponse({'msg' : '댓글 삭제 완료'})
+    

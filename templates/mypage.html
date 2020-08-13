@@ -2,6 +2,12 @@
 {% block content %}
 
 {% load static %}
+
+<head>
+    <!-- 구글 폰트 링크 -->
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+</head>
+
 <link href="{% static 'scroll.css' %}" rel="stylesheet">
 <style>
     svg.bd-placeholder-img {
@@ -9,6 +15,16 @@
   height: 140px;
   background-image: url('https://secure.gravatar.com/avatar/2e4f63e0ef15ad019600822cc42ad278?s=140&d=mm&r=g');
     }
+
+    article .block p {line-height: 22px; color: #000; font-size: 16px; font-weight: 600;}
+article .block h2 {line-height: 22px; color: #000; font-size: 16px; font-weight: 600;}
+article .block h4 {line-height: 22px; color: #000; font-size: 16px; font-weight: 600;}
+
+/* 게시글 내용 */
+p.con{
+    text-align: left;
+    font-family: 'Nanum Gothic', sans-serif;
+}
 </style>
 
 <p></p>
@@ -19,20 +35,31 @@
         <p></p>
         <h2>{{user.email}}</h2>
         <h4>{{user.name}}</h4>
-    <p>게시글 수 :   휴대폰 번호 : {{user.phone}} </p>
+    <p>게시글 수 : {{ user_posting.count }} &nbsp; &nbsp;  휴대폰 번호 : {{user.phone}} </p>
 
   </div><!-- /.col-lg-4 -->
-
+<hr>
   <!-- HTML -->
 <article>
+    {% for posting in user_posting %}
     <div class="block">
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem mollitia accusamus sequi ipsa, rerum nam laboriosam, ipsam aperiam deleniti beatae expedita id quisquam veritatis corporis, voluptates ducimus molestiae eum adipisci.
-        </p>
-    </div>
+        <p>게시자 : {{ posting.email.email }}</p>
+        <p>위치 : {{ posting.location }}</p>
+        <img src="/static/profile_image/{{ posting.picture }}" width="540px" height="620px">
+        <p></p>
+        <p class="con">{{ posting.content }}</p>
+        <a href="/inspace/signout/">
+           
+        </a>
 
-    <!-- 반복 -->
+    </div>
+    <p></p>
+    <hr>
+    {% endfor %}
+  
+    <!--반복 -->
 </article>
+
 </center>
 <script>
 /*
