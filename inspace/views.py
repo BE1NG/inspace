@@ -1,13 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
-from space.models import User
-# from inspace.models import 테이블 이름
+from space.models import User, Posting
+from django.http import JsonResponse  # JSON 응답
 
 
-# 게시판
-def write(request):
-    return render(request, 'write.html')
 
 # 회원가입
 def signup(request):
@@ -54,3 +51,50 @@ def signout(request):
 
 def mypage(request):
     return render(request, 'mypage.html')
+
+
+
+### 게시판 ###
+def write(request):
+
+    # if post
+    # 파일 업로드 코드 동작
+    # => 파일 저장 경로 / 파일명
+    # Post(title=dd,content=dd, picture=OOOOOO)
+    # poast.save()
+    return render(request, 'write.html')
+
+
+## 사진 업로드
+import os
+def upload(request):
+    if request.method == 'GET':
+      return render(request, 'upload.html', {})
+    else:
+        upload_file = request.FILES['my_file']
+        try: # 디렉토리 생성
+          os.mkdir('static/profile_image')
+        except FileExistsError as e:
+          pass
+        file_name = upload_file.name
+        with open('static/profile_image/' + file_name, 'wb') as file:
+          for chunk in upload_file.chunks():
+            file.write(chunk)
+        return HttpResponse('파일 업로드 완료')
+
+
+## 위도/경도 -> 주소
+import requests
+def coord_to_address(request):
+    lat = request.GET.get('lat')
+    lng = request.GET.get('lng')
+
+    params = {'y': lat, 'x': lng}
+    headers = {'Authorization': 'KakaoAK 8bf7271ae8d6c842984b0beb033e9b27'}
+    result = requests.get('https://dapi.kakao.com/v2/local/geo/coord2regioncode.json', params=params, headers=headers)
+    result = result.json()
+
+    print(result)
+
+    return JsonResponse(result)
+

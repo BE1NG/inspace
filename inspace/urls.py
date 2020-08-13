@@ -20,7 +20,10 @@ import inspace.views as views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('inspace/write/', views.write),
+    path('coord_to_address/', views.coord_to_address),
     path('inspace/signup/', views.signup),
     path('inspace/signin/', views.signin),
     path('inspace/mypage/', views.mypage),
+    path('inspace/upload/', views.upload),
+
 ]
