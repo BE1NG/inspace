@@ -22,13 +22,14 @@
                 <label for="location">위치</label>
                 <textarea class="form-control" rows="1" name="location" id="location"></textarea>
             </div>
-
+            <hr></hr>
             <div class="form-group">
                 <label for="picture">사진</label>
+                <p></p>
                 <input type="file" name="picture" id="picture">
             </div>
 
-            
+            <hr></hr>
 
             <button type="submit" id="complete" class="btn btn-primary btn-block">
                 게시물 올리기
@@ -58,6 +59,21 @@
                 }
             })
         });
+</script>
+
+
+<script>
+    $('#check').click(function () {
+        $.ajax({
+            url: '/signup/check_id',
+            data: { 'email': $('#email').val() },
+            success: function (res) {
+                alert(res.code);
+                alert(res.msg);
+            }
+        })
+        return false;
+    })
 </script>
 
 

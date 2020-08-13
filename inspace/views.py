@@ -112,26 +112,9 @@ def write(request):
             posting.save()
             return HttpResponseRedirect('/inspace/signup/')
         except:
-            return HttpResponseRedirect('/inspace/signin/')
+            return JsonResponse({'code':'아이디 중복 확인', 'msg': '중복된 아이디입니다.'})
 
     return render(request, 'write.html')
-
-
-## 사진 업로드
-def upload(request):
-    if request.method == 'GET':
-      return render(request, 'upload.html', {})
-    else:
-        upload_file = request.FILES['my_file']
-        try: # 디렉토리 생성
-          os.mkdir('static/profile_image')
-        except FileExistsError as e:
-          pass
-        file_name = upload_file.name
-        with open('static/profile_image/' + file_name, 'wb') as file:
-          for chunk in upload_file.chunks():
-            file.write(chunk)
-        return HttpResponse('파일 업로드 완료')
 
 
 ## 위도/경도 -> 주소
