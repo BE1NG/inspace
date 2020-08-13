@@ -2,12 +2,10 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from space.models import User, Posting
+from space.models import User_Comment # comment
 from django.http import JsonResponse  # JSON 응답
 import os  # 사진 업로드
-import requests  # 위도/경도 -> 주소
-from space.models import User_Comment # comment
-
-
+import requests # 위도/경도 -> 주소
 
 # 회원가입
 def signup(request):
@@ -119,26 +117,9 @@ def write(request):
             posting.save()
             return HttpResponseRedirect('/inspace/signup/')
         except:
-            return HttpResponseRedirect('/inspace/signin/')
+            return JsonResponse({'code':'아이디 중복 확인', 'msg': '중복된 아이디입니다.'})
 
     return render(request, 'write.html')
-
-
-## 사진 업로드
-def upload(request):
-    if request.method == 'GET':
-      return render(request, 'upload.html', {})
-    else:
-        upload_file = request.FILES['my_file']
-        try: # 디렉토리 생성
-          os.mkdir('static/profile_image')
-        except FileExistsError as e:
-          pass
-        file_name = upload_file.name
-        with open('static/profile_image/' + file_name, 'wb') as file:
-          for chunk in upload_file.chunks():
-            file.write(chunk)
-        return HttpResponse('파일 업로드 완료')
 
 
 ## 위도/경도 -> 주소
@@ -156,7 +137,10 @@ def coord_to_address(request):
     return JsonResponse(result)
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> e07b4fb39c6cbfe2701777026701150e5d636cb1
 # 댓글
 def comment(request):
     User_Comment_list = User_Comment.objects.order_by('id')

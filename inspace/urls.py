@@ -11,7 +11,6 @@ urlpatterns = [
     path('inspace/signin/', views.signin),
     path('inspace/signout/', views.signout),
     path('inspace/mypage/', views.mypage),
-    path('inspace/upload/', views.upload),
     path('inspace/comment/', views.comment),
     path('inspace/comment/<int:id>/', views.comment_id),
 ]
