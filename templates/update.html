@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    .jumbotron{
+    background-color:#fff;
+    }
+</style>
+
+
+<div class="jumbotron">
+    <div class="container text-center">
+        <form method="post" action="/inspace/write/update/{{ posting.id }}/" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="content">게시물 수정</label>
+                <textarea class="form-control" rows="5" name="content" id="content" placeholder="글자 입력">{{ posting.content }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="location">위치</label>
+                <textarea class="form-control" rows="1" name="location" id="location">{{ posting.location }}</textarea>
+            </div>
+            <hr></hr>
+            <div class="form-group">
+                <label for="picture">사진</label>
+                <p></p>
+                <!-- <input type="file" name="picture" id="picture" value = "{{posting.picture}}"> -->
+                <img src="/static/profile_image/{{ posting.picture }}" width="540px" height="620px">
+            </div>
+
+            <hr></hr>
+
+            <button type="submit" id="complete" class="btn btn-primary btn-block">
+                수정하기
+            </button>
+
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

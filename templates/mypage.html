@@ -16,9 +16,11 @@
   background-image: url('https://secure.gravatar.com/avatar/2e4f63e0ef15ad019600822cc42ad278?s=140&d=mm&r=g');
     }
 
-    article .block p {line-height: 22px; color: #000; font-size: 16px; font-weight: 600;}
+article .block p {line-height: 22px; color: #000; font-size: 16px; font-weight: 600;}
 article .block h2 {line-height: 22px; color: #000; font-size: 16px; font-weight: 600;}
 article .block h4 {line-height: 22px; color: #000; font-size: 16px; font-weight: 600;}
+
+article .block {padding: 0px; min-height: 500px; width:540px;}
 
 /* 게시글 내용 */
 p.con{
@@ -47,6 +49,7 @@ p.comments{
 <article>
     {% for posting in user_posting %}
     <div class="block">
+        <form action="" method='post'></form>
         <p>게시자 : {{ posting.email.email }}</p>
         <p>위치 : {{ posting.location }}</p>
         <a href="/inspace/posting/{{ posting.id }}/">
@@ -57,10 +60,21 @@ p.comments{
            
         </a>
         <p class="comments">
-            <a href="/inspace/posting/{{ posting.id }}/">
-            댓글
-            </a>
-        </p>
+            
+            <p class="comments">
+                <a href="/inspace/posting/{{ posting.id }}/">
+                    댓글
+                    </a>
+                &nbsp;
+                <a href="/inspace/write/update/{{posting.id}}/">
+                    수정
+                </a>
+                &nbsp;
+                <a href="/inspace/write/delete">
+                    삭제
+                </a>
+            </p>
+        </form>
     </div>
     <p></p>
     <hr>
