@@ -14,4 +14,5 @@ urlpatterns = [
     path('inspace/main/', views.main),
     path('inspace/comment/', views.comment),
     path('inspace/comment/<int:id>/', views.comment_id),
+    path('inspace/posting/<int:id>/', views.posting_id),
 ]

@@ -16,5 +16,7 @@ class Posting(models.Model):
 
 # commet DB
 class User_Comment(models.Model):
+    posting = models.ForeignKey(Posting, on_delete=models.CASCADE)
     email = models.CharField(max_length=50)
     comment = models.CharField(max_length=1000)
+    # user_comment_set.all()

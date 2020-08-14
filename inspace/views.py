@@ -140,6 +140,16 @@ def coord_to_address(request):
 
     return JsonResponse(result)
 
+# 상세 페이지
+def posting_id(request, id):
+    user_posting = Posting.objects.get(id=id)
+    print(user_posting.id, user_posting.email.name)
+    context = {
+        'user_posting' : user_posting
+    }
+    #user_comment.comment = comment
+    #user_comment.save()
+    return render(request, 'posting.html',context)
 
 # 댓글
 def comment(request):
@@ -150,27 +160,16 @@ def comment(request):
     }
     if request.method == 'POST':
         comment = request.POST.get('comment')
-        email = request.POST.get('email')
-        id = request.POST.get('id')
-
-        information = User_Comment(email='email_가짜', comment=comment)
-        information.save()
-
-        print(comment,id)
-
         try:
             email = request.session['email']
-            # select * from user where email = ?
-
-            user = User.objects.get(email=email)
-            # insert into article (title, content, user_id) values (?, ?, ?)
-            
-            user_comment = User_Comment(comment=comment, user=user)
-            article.save()
-            
-            return render(request, 'comment.html',context)
+            id = request.POST.get("id")
+            posting = Posting.objects.get(id=id)
+            information = User_Comment(email=email, comment=comment, posting=posting)
+            information.save()
         except:
-            return HttpResponseRedirect('/inspace/comment/')
+            pass
+
+        return HttpResponseRedirect('/inspace/posting/%s/' % id)
 
     return render(request, 'comment.html',context)
 
