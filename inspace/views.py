@@ -97,27 +97,28 @@ def write(request):
             content = request.POST.get('content')
             location = request.POST.get('location')
             
-            # 사진 업로드
-            picture = request.FILES['picture']
             
+            # 사진 업로드
+            picture = ''
             try: # 디렉토리 생성
                 os.mkdir('static/profile_image')  # 폴더 생성
             except FileExistsError as e:
                 pass
-            
-            picture_name = picture.name
-            with open('static/profile_image/' + picture_name, 'wb') as file:
-                for chunk in picture.chunks():
-                    file.write(chunk)
-
-
-            
+            try:
+                picture = request.FILES['picture']
+                
+                picture_name = picture.name
+                with open('static/profile_image/' + picture_name, 'wb') as file:
+                    for chunk in picture.chunks():
+                        file.write(chunk)
+            except:
+                pass
 
             posting = Posting(content=content, picture=picture, location=location, email=user)
             posting.save()
-            return HttpResponseRedirect('/inspace/signup/')
+            return HttpResponseRedirect('/inspace/mypage/')
         except:
-            return JsonResponse({'code':'아이디 중복 확인', 'msg': '중복된 아이디입니다.'})
+            return render(request, 'write_error.html', {'msg' : '글 작성 실패'})
 
     return render(request, 'write.html')
 
