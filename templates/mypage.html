@@ -25,6 +25,10 @@ p.con{
     text-align: left;
     font-family: 'Nanum Gothic', sans-serif;
 }
+
+p.comments{
+    text-align: right;
+}
 </style>
 
 <p></p>
@@ -45,13 +49,18 @@ p.con{
     <div class="block">
         <p>게시자 : {{ posting.email.email }}</p>
         <p>위치 : {{ posting.location }}</p>
+        <a href="/inspace/comment/">
         <img src="/static/profile_image/{{ posting.picture }}" width="540px" height="620px">
-        <p></p>
+        </a>
         <p class="con">{{ posting.content }}</p>
         <a href="/inspace/signout/">
            
         </a>
-
+        <p class="comments">
+            <a href="/inspace/comment/">
+            댓글
+            </a>
+        </p>
     </div>
     <p></p>
     <hr>
