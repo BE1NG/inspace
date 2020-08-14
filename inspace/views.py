@@ -169,13 +169,26 @@ def update(request, id):
             posting.location = location
             # posting.picture = picture
             posting.save()
-            return HttpResponseRedirect('/inspace/main/')
+            return HttpResponseRedirect('/inspace/mypage/')
         except:
             return HttpResponseRedirect('/inspace/signin/')
     context = {
         'posting' : posting
     }
     return render(request, 'update.html', context)
+
+# 게시글 삭제
+def delete(request, id):
+    try:
+        email = request.session['email']
+        user = User.objects.get(email=email)
+
+        posting = Posting.objects.get(id=id)
+       
+        posting.delete()
+        return HttpResponseRedirect('/inspace/mypage/')
+    except:
+        return HttpResponseRedirect('/inspace/signin/')
 
 
 # 댓글
