@@ -6,6 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('inspace/write/', views.write),
     path('coord_to_address/', views.coord_to_address),
+    path('inspace/write/update/<int:id>/', views.update),
     path('inspace/signup/', views.signup),
     path('signup/check_id/', views.check_id),
     path('inspace/signin/', views.signin),

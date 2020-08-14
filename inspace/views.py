@@ -141,6 +141,33 @@ def coord_to_address(request):
     return JsonResponse(result)
 
 
+# 게시글 수정
+def update(request, id):
+    # select * from article where id = ?
+    email = request.session['email']
+    user = User.objects.get(email=email)
+
+    posting = Posting.objects.get(id=id)
+    if request.method == 'POST':
+        try:
+            # update article set title = ?, content = ? where id = ?
+            content = request.POST.get('content')
+            location = request.POST.get('location')
+            # picture = request.POST.get('picture')
+
+            posting.content = content
+            posting.location = location
+            # posting.picture = picture
+            posting.save()
+            return HttpResponseRedirect('/inspace/main/')
+        except:
+            return HttpResponseRedirect('/inspace/signin/')
+    context = {
+        'posting' : posting
+    }
+    return render(request, 'update.html', context)
+
+
 # 댓글
 def comment(request):
     User_Comment_list = User_Comment.objects.order_by('id')
