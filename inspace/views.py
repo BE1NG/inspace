@@ -54,7 +54,7 @@ def signin(request):
             
             return HttpResponseRedirect('/inspace/main/')
         except:
-            return render(request, 'signin_error.html', {'msg' : 'ID 혹은 비밀번호를 잘못 입력하셨거나 등록되지 않은 ID 입니다'})
+            return render(request, 'signin_error.html', {'msg' : 'ID 혹은 비밀번호를 잘못 입력하셨거나 등록되지 않은 ID 입니다.'})
 
     return render(request, 'signin.html')
 
@@ -70,7 +70,8 @@ def mypage(request):
     try:
         email = request.session['email']
         user = User.objects.get(email=email)
-        user_posting = Posting.objects.filter(email=user)
+        user_posting = Posting.objects.filter(email=user).order_by('-id')
+
         context = {
             'user' : user,
             'user_posting' : user_posting
@@ -120,7 +121,7 @@ def write(request):
             posting.save()
             return HttpResponseRedirect('/inspace/mypage/')
         except:
-            return render(request, 'write_error.html', {'msg' : '글 작성 실패'})
+            return render(request, 'write_error.html', {'msg' : '로그인을 해야 글을 작성 할 수 있습니다.'})
 
     return render(request, 'write.html')
 
@@ -193,7 +194,7 @@ def main(request):
     try:
         email = request.session['email']
         user = User.objects.get(email=email)
-        user_posting = Posting.objects.filter(email=user)
+        user_posting = Posting.objects.order_by('-id')
         context = {
             'user' : user,
             'user_posting' : user_posting

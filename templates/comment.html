@@ -8,6 +8,19 @@
             <div>
                 <span><strong>Comments</strong></span> <span id="cCnt"></span>
             </div>
+            <div class="block">
+                <p>게시자 : {{ posting.email.email }}</p>
+                <p>위치 : {{ posting.location }}</p>
+                <a href="/inspace/comment/">
+                <img src="/static/profile_image/{{ posting.picture }}" width="540px" height="620px">
+                </a>
+                <p class="con">{{ posting.content }}</p>
+                <p class="comments">
+                    <a href="/inspace/comment/">
+                    댓글
+                    </a>
+                </p>
+            </div>
             <div>
                 <table class="table">
                     <tr>
