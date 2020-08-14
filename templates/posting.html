@@ -41,7 +41,7 @@
                                     <span>{{ User_Comment.comment }}</span>
                                     <span style="float: right">
                                         <input type="button" class="btn btn-default" value="수정" onclick='modify(this)' c-id="{{ User_Comment.id }}">
-                                        <!-- <input type="button" class="btn btn-default" value="삭제" onclick='modify(this)' d-id="{{ User_Comment.id }}"> -->
+                                        <input type="button" class="btn btn-default" value="삭제" onclick='remove(this)' d-id="{{ User_Comment.id }}">
                                     </span>
                                 </td>
                             </tr>
@@ -82,6 +82,13 @@
                 }
             });
         }
+    }
+    function remove(obj) {
+        var id = $(obj).attr('d-id');
+        var posting_id = '{{ user_posting.id }}';
+
+        // ajax 댓글 수정 요청
+        location = '/inspace/comment/delete/' + id + '/?posting_id=' + posting_id;
     }
 </script>
 

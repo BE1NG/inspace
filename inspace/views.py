@@ -208,11 +208,12 @@ def comment_id(request, id):
     user_comment.save()
     return JsonResponse({'msg' : '댓글 수정 완료'})
 
-def delete(request, id):
-    comment = request.GET.get('comment')
+# 댓글 삭제
+def comment_delete(request, id):
+    posting_id = request.GET.get('posting_id')
     user_comment = User_Comment.objects.get(id=id)
     user_comment.delete()
-    return JsonResponse({'msg' : '댓글 삭제 완료'})
+    return HttpResponseRedirect('/inspace/posting/%s/' % posting_id)
 
 
     # 메인
