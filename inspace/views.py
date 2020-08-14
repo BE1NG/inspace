@@ -52,7 +52,7 @@ def signin(request):
             user = User.objects.get(email=email, password=password)
             request.session['email'] = email
             
-            return HttpResponseRedirect('/inspace/mypage/')
+            return HttpResponseRedirect('/inspace/main/')
         except:
             return render(request, 'signin.html')
 
@@ -184,4 +184,18 @@ def delete(request, id):
     user_comment = User_Comment.objects.get(id=id)
     user_comment.delete()
     return JsonResponse({'msg' : '댓글 삭제 완료'})
+
+
+    # 메인
+def main(request):
+    email = request.session['email']
+    user = User.objects.get(email=email)
+    #user_posting = Posting.objects.filter(email=user)
+    context = {
+        'user' : user,
+        'user_posting' : user_posting
+    }
+    print(user_posting)
+
+    return render(request, 'main.html', context)
     
