@@ -7,6 +7,7 @@ urlpatterns = [
     path('inspace/write/', views.write),
     path('coord_to_address/', views.coord_to_address),
     path('inspace/write/update/<int:id>/', views.update),
+    path('inspace/delete/<int:id>/', views.delete),
     path('inspace/signup/', views.signup),
     path('signup/check_id/', views.check_id),
     path('inspace/signin/', views.signin),
