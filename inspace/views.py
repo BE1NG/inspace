@@ -54,7 +54,7 @@ def signin(request):
             
             return HttpResponseRedirect('/inspace/main/')
         except:
-            return render(request, 'signin.html')
+            return render(request, 'signin_error.html', {'msg' : 'ID 혹은 비밀번호를 잘못 입력하셨거나 등록되지 않은 ID 입니다'})
 
     return render(request, 'signin.html')
 
@@ -67,17 +67,19 @@ def signout(request):
 
 # 마이페이지
 def mypage(request):
-    email = request.session['email']
-    user = User.objects.get(email=email)
-    user_posting = Posting.objects.filter(email=user)
-    context = {
-        'user' : user,
-        'user_posting' : user_posting
-    }
-    print(user_posting)
+    try:
+        email = request.session['email']
+        user = User.objects.get(email=email)
+        user_posting = Posting.objects.filter(email=user)
+        context = {
+            'user' : user,
+            'user_posting' : user_posting
+        }
+        print(user_posting)
 
-    return render(request, 'mypage.html', context)
-
+        return render(request, 'mypage.html', context)
+    except:
+        return HttpResponseRedirect('/inspace/signin/')
 
 
 ### 게시판 ###
@@ -188,14 +190,16 @@ def delete(request, id):
 
     # 메인
 def main(request):
-    email = request.session['email']
-    user = User.objects.get(email=email)
-    user_posting = Posting.objects.filter(email=user)
-    context = {
-        'user' : user,
-        'user_posting' : user_posting
-    }
-    print(user_posting)
+    try:
+        email = request.session['email']
+        user = User.objects.get(email=email)
+        user_posting = Posting.objects.filter(email=user)
+        context = {
+            'user' : user,
+            'user_posting' : user_posting
+        }
+        print(user_posting)
 
-    return render(request, 'main.html', context)
-    
+        return render(request, 'main.html', context)
+    except:
+        return HttpResponseRedirect('/inspace/signin/')    
