@@ -190,7 +190,7 @@ def delete(request, id):
 def main(request):
     email = request.session['email']
     user = User.objects.get(email=email)
-    #user_posting = Posting.objects.filter(email=user)
+    user_posting = Posting.objects.filter(email=user)
     context = {
         'user' : user,
         'user_posting' : user_posting
